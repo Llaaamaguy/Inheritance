@@ -33,6 +33,33 @@ class OrderTaker(Employee):
         order.order_taken = True
         self.orders_taken += 1
 
+class SandwichMaker(Employee):
+    
+    def __init__(self, name):
+        super().__init__(name)
+        self.sandwichs_made = 0
+    
+    def __str__(self):
+        return super().__str__() + "\n Sandwichs made: {}".format(self.sandwichs_made)
+
+    def make_sandwich(self, order):
+        order.sandwich_made = True
+        self.sandwichs_made += 1
+
+class Cashier(Employee):
+    
+    def __init__(self, name):
+        super().__init__(name)
+        self.orders_checked_out = 0
+    
+    def __str__(self):
+        return super().__str__() + "\n Orders checked out: {}".format(self.orders_checked_out)
+    
+    def process_order(self, order):
+        order.checked_out = True
+        self.orders_checked_out += 1
+
+
 # Create SandwichMaker and Cashier classes which inherit from Employee.
 
 def done(orders):
@@ -46,7 +73,18 @@ def main():
     orders  = [Order(n) for n in range(50)] # This line creates a list of orders
 
     joe = OrderTaker("Joe")
+    james = SandwichMaker("James")
+    jimmy = Cashier("Jimmy")
 
+    for order in orders:
+        joe.check_out(order)
+        print(joe)
+        james.make_sandwich(order)
+        print(james)
+        jimmy.process_order(order)
+        print(jimmy)
+        print("\n")
+    
     # Using an OrderTaker, a SandwichMaker, and a Cashier, complete all the orders. 
 
     done(orders)
